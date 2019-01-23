@@ -20,6 +20,7 @@ opencv_world400.lib
 #include <iostream>
 #include <string> 
 #include <sstream> 
+
 using namespace std;
 
 // OpenCV includes 
@@ -28,18 +29,28 @@ using namespace std;
 using namespace cv;
 
 
+int RadImage();
+
+string ImagePath = "../murshoom.jpg";
 
 int main(int argc, const char** argv)
 {
+	//read Image
+	RadImage();
+
+}
+
+//Read, Write and width and height of the image
+int RadImage() {
 	// Read images 
-	Mat colorImage = imread("../murshoom.jpg"); 
-	Mat grayImage = imread("../murshoom.jpg", IMREAD_GRAYSCALE);
+	Mat colorImage = imread(ImagePath);
+	Mat grayImage = imread(ImagePath, IMREAD_GRAYSCALE);
 	if (!colorImage.data) // Check for invalid input 
-	{ 
-		cout << "Could not open or find the image" << endl ; 
-		return -1; 
+	{
+		cout << "Could not open or find the image" << endl;
+		return -1;
 	}
-	// Write images 
+	// Write images in app
 	imwrite("../murshoomGray.jpg", grayImage);
 
 
@@ -56,5 +67,6 @@ int main(int argc, const char** argv)
 	// wait for any key press 
 	waitKey(0);
 	return 0;
-
 }
+
+

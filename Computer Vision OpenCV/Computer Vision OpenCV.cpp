@@ -1,9 +1,5 @@
 // Computer Vision OpenCV.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
-#include "pch.h"
-#include <iostream>
-
 /*
 Add OpenCV to Project
 in Project properties:
@@ -20,18 +16,45 @@ opencv_img_hash400.lib
 opencv_world400.lib
 */
 
-int main()
+#include "pch.h"
+#include <iostream>
+#include <string> 
+#include <sstream> 
+using namespace std;
+
+// OpenCV includes 
+#include "opencv2/core.hpp" //core header that declares the image data structure
+#include "opencv2/highgui.hpp" //contains all the graphical interface functions.
+using namespace cv;
+
+
+
+int main(int argc, const char** argv)
 {
-    std::cout << "Hello World!\n"; 
+	// Read images 
+	Mat colorImage = imread("../murshoom.jpg"); 
+	Mat grayImage = imread("../murshoom.jpg", IMREAD_GRAYSCALE);
+	if (!colorImage.data) // Check for invalid input 
+	{ 
+		cout << "Could not open or find the image" << endl ; 
+		return -1; 
+	}
+	// Write images 
+	imwrite("../murshoomGray.jpg", grayImage);
+
+
+	//get image width and height
+	cout << "Width : " << colorImage.cols << endl;
+	cout << "Height: " << colorImage.rows << endl;
+	//another way to get image width and height 
+	cout << "Size => Width : " << colorImage.size().width << endl;
+	cout << "Size => Height: " << colorImage.size().height << endl;
+
+	// show images 
+	imshow("Lena BGR", colorImage);
+	imshow("Lena Gray", grayImage);
+	// wait for any key press 
+	waitKey(0);
+	return 0;
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
